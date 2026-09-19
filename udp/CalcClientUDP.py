@@ -1,5 +1,3 @@
-#!/usr/bin/env python3
-
 import argparse
 import random
 import socket
@@ -71,8 +69,8 @@ def main():
     total_time = (time.perf_counter() - start_total) * 1000 # ms
 
 
-    print("\n----- Estatísticas -----")
-    print(f"Total de requisições enviadas: {args.n}")
+    print("\n----- Estatísticas (UDP) -----")
+    print(f"Requisições enviadas: {args.n}")
     print(f"Requisições recebidas: {len(rtts)}")
     print(f"Requisições perdidas definitivamente: {len(lost_requests)} {lost_requests}")
 
