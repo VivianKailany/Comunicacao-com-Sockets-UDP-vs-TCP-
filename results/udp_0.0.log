@@ -1,0 +1,33 @@
+[00] Cliente → CALC:0:27.89:*:-95.0      | Servidor → RESULT:0:-2649.55         | RTT:   1.6 ms | Tentativa: 1
+[01] Cliente → CALC:1:-51.02:+:-72.09    | Servidor → RESULT:1:-123.11          | RTT:   1.1 ms | Tentativa: 1
+[02] Cliente → CALC:2:35.34:+:78.44      | Servidor → RESULT:2:113.78           | RTT:   0.9 ms | Tentativa: 1
+[03] Cliente → CALC:3:18.1:+:-93.64      | Servidor → RESULT:3:-75.54           | RTT:   1.1 ms | Tentativa: 1
+[04] Cliente → CALC:4:-56.27:+:1.07      | Servidor → RESULT:4:-55.20           | RTT:   1.0 ms | Tentativa: 1
+[05] Cliente → CALC:5:12.25:/:43.2       | Servidor → RESULT:5:0.28             | RTT:   1.0 ms | Tentativa: 1
+[06] Cliente → CALC:6:-55.91:+:17.85     | Servidor → RESULT:6:-38.06           | RTT:   1.5 ms | Tentativa: 1
+[07] Cliente → CALC:7:51.76:/:-68.07     | Servidor → RESULT:7:-0.76            | RTT:   1.8 ms | Tentativa: 1
+[08] Cliente → CALC:8:-31.95:*:-68.9     | Servidor → RESULT:8:2201.36          | RTT:   1.2 ms | Tentativa: 1
+[09] Cliente → CALC:9:-79.56:*:-24.01    | Servidor → RESULT:9:1910.24          | RTT:   1.0 ms | Tentativa: 1
+[10] Cliente → CALC:10:69.5:+:20.75      | Servidor → RESULT:10:90.25           | RTT:   1.3 ms | Tentativa: 1
+[11] Cliente → CALC:11:45.95:/:7.25      | Servidor → RESULT:11:6.34            | RTT:   1.0 ms | Tentativa: 1
+[12] Cliente → CALC:12:-84.24:*:-41.36   | Servidor → RESULT:12:3484.17         | RTT:   0.9 ms | Tentativa: 1
+[13] Cliente → CALC:13:15.47:+:40.91     | Servidor → RESULT:13:56.38           | RTT:   0.9 ms | Tentativa: 1
+[14] Cliente → CALC:14:32.25:+:54.61     | Servidor → RESULT:14:86.86           | RTT:   1.0 ms | Tentativa: 1
+[15] Cliente → CALC:15:71.06:/:73.3      | Servidor → RESULT:15:0.97            | RTT:   1.1 ms | Tentativa: 1
+[16] Cliente → CALC:16:-44.41:*:27.14    | Servidor → RESULT:16:-1205.29        | RTT:   1.0 ms | Tentativa: 1
+[17] Cliente → CALC:17:-67.47:*:-28.95   | Servidor → RESULT:17:1953.26         | RTT:   0.9 ms | Tentativa: 1
+[18] Cliente → CALC:18:40.36:+:36.71     | Servidor → RESULT:18:77.07           | RTT:   0.8 ms | Tentativa: 1
+[19] Cliente → CALC:19:21.83:-:-65.77    | Servidor → RESULT:19:87.60           | RTT:   0.9 ms | Tentativa: 1
+
+=============================================
+           ESTATÍSTICAS UDP
+=============================================
+Requisições enviadas:       20
+Requisições recebidas:      20
+Requisições perdidas:       0
+Retransmissões:             0
+Tempo total:                28.0 ms
+RTT máximo:                 1.8 ms
+RTT médio:                  1.1 ms
+Tamanho médio mensagens:   18.1 bytes
+=============================================

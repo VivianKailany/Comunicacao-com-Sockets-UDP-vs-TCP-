@@ -35,7 +35,7 @@ def handle_message(data, addr, sock, loss_rate, lock):
 
         try:
             result = compute_expression(f"{op1} {operator} {op2}")
-            response = f"RESULT:{n}:{result}"
+            response = f"RESULT:{n}:{result:.2f}"
         except (ZeroDivisionError, ValueError, ArithmeticError) as e:
             response = f"ERROR:{n}:{(e)}"
 

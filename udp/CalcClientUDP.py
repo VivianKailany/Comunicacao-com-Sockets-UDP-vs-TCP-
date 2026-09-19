@@ -12,13 +12,13 @@ def gen_request(n):
     return f"CALC:{n}:{op1}:{op}:{op2}"
 
 def main():
-    parser = argparse.ArgumentParser(description='Cliente UDP da Calculator remota')
-    parser.add_argument('--host', type=str, default='127.0.0.1', help='Host do servidor')
-    parser.add_argument('--port', type=int, default=9000, help='Porta')
-    parser.add_argument('-n', type=int, default=20, help='Número de requisições')
+    parser = argparse.ArgumentParser(description='Cliente UDP da calculadora remota')
+    parser.add_argument('--host', type=str, default='127.0.0.1')
+    parser.add_argument('--port', type=int, default=9000)
+    parser.add_argument('-n', type=int, default=20)
     parser.add_argument('--timeout', type=int, default=500, help='Timeout em ms antes de retrasmitir')
-    parser.add_argument('--retries', type=int, default=5, help='Número máximo de retransmissões')
-    parser.add_argument('--seed', type=int, default=42, help='Semente para geração de números aleatórios')
+    parser.add_argument('--retries', type=int, default=5)
+    parser.add_argument('--seed', type=int, default=42)
     args = parser.parse_args()
 
     if args.seed is not None:
@@ -29,11 +29,10 @@ def main():
     server_address = (args.host, args.port)
 
     rtts = []
-    total_retries = 0
-    lost_requests = []
     sent_bytes = []
     recved_bytes = []
-
+    total_retries = 0
+    lost_requests = []
     start_total = time.perf_counter()
 
     for i in range(args.n):
@@ -57,30 +56,43 @@ def main():
 
                 if attempts > 1:
                     total_retries += (attempts - 1)
-                print(f"[{i:02d}] {request}  ->  {response}   (RTT={rtt:.1f} ms, tentativa {attempts})")
+                print(
+                    f"[{i:02d}] Cliente → {request:<25} | "
+                    f"Servidor → {response:<25} | "
+                    f"RTT: {rtt:>5.1f} ms | "
+                    f"Tentativa: {attempts}"
+                    )
             except socket.timeout:
-                print(f"[{i:02d}] timeout na tentativa {attempts}/{args.retries} — reenviando...")
+                print(f"[{i:02d}] TIMEOUT | Tentativa: {attempts}/{args.retries} | Reenviando...")
 
         if not got_response:
             total_retries += (attempts - 1)
             lost_requests.append(i)
-            print(f"[{i:02d}] request perdida após {args.retries} tentativas")
+            print(f"[{i:02d}] REQUEST PERDIDA | Após {args.retries} tentativas")
 
     total_time = (time.perf_counter() - start_total) * 1000 # ms
+    sock.close()
 
+    print("\n" + "=" * 45)
+    print("           ESTATÍSTICAS UDP")
+    print("=" * 45)
 
-    print("\n----- Estatísticas (UDP) -----")
-    print(f"Requisições enviadas: {args.n}")
-    print(f"Requisições recebidas: {len(rtts)}")
-    print(f"Requisições perdidas definitivamente: {len(lost_requests)} {lost_requests}")
+    print(f"Requisições enviadas:       {args.n}")
+    print(f"Requisições recebidas:      {len(rtts)}")
+    print(f"Requisições perdidas:       {len(lost_requests)}")
+    print(f"Retransmissões:             {total_retries}")
+    print(f"Tempo total:                {total_time:.1f} ms")
 
-    print(f"Total de retransmissões: {total_retries}")
-    print(f"Tempo total da sequencia: {total_time:.1f} ms")
     if rtts:
-        print(f"RTT máximo: {max(rtts):.1f} ms")
-        print(f"RTT médio: {sum(rtts)/len(rtts):.1f} ms")
+        print(f"RTT máximo:                 {max(rtts):.1f} ms")
+        print(f"RTT médio:                  {sum(rtts) / len(rtts):.1f} ms")
+
+        avg_size = sum(sent_bytes + recved_bytes) / len(sent_bytes + recved_bytes)
+        print(f"Tamanho médio mensagens:   {avg_size:.1f} bytes")
     else:
-        print("Nenhuma resposta recebida, não é possível calcular RTT.")
+        print("RTT:                        N/A (nenhuma resposta)")
+
+    print("=" * 45)
 
 if __name__ == "__main__":
     main()
