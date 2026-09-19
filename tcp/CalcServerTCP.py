@@ -35,11 +35,15 @@ def handle_client(conn, addr):
                 _, n, op1, op, op2 = parts
                 try:
                     result = compute(op1, op, op2)
-                    response = f"RESULT:{n}:{result}\n"
+                    response = f"RESULT:{n}:{result:.2f}\n"
                 except (ZeroDivisionError, ValueError, ArithmeticError) as e:
                     response = f"ERROR:{n}:{e}\n"
                 conn.sendall(response.encode('utf-8'))
-                print(f"[TCP] {addr} -> {msg}  |  resposta -> {response.strip()}")
+                print(
+                    f"[TCP] {addr} | "
+                    f"Cliente → {msg:<25} | "
+                    f"Servidor → {response.strip()}"
+                )
     except (ConnectionResetError, BrokenPipeError):
         print(f"[TCP] conexão com {addr} foi interrompida.")
     finally:

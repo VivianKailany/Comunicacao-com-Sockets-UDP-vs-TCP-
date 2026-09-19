@@ -5,7 +5,6 @@ import time
 
 OPS = ['+', '-', '*', '/']
 
-
 def gen_request(n):
     op1 = round(random.uniform(-100, 100), 2)
     op2 = round(random.uniform(-100, 100), 2)
@@ -33,8 +32,8 @@ def main():
     recv_bytes = []
     start_total = time.perf_counter()
 
-    for n in range(args.num_requests):
-        request = gen_request(n)
+    for i in range(args.num_requests):
+        request = gen_request(i)
         payload = (request + "\n").encode('utf-8')
         t0 = time.perf_counter()
         sock.sendall(payload)
@@ -44,19 +43,36 @@ def main():
         rtts.append(rtt)
         sent_bytes.append(len(payload))
         recv_bytes.append(len(line.encode('utf-8')))
-        print(f"[{n:02d}] {request}  ->  {response}   (RTT={rtt:.1f} ms)")
+        print(
+            f"[{i:02d}] "
+            f"Cliente → {request:<32} | "
+            f"Servidor → {response:<32} | "
+            f"RTT: {rtt:>5.1f} ms"
+        )
 
     total_time = (time.perf_counter() - start_total) * 1000
     sock.close()
 
-    print("\n----- Estatísticas (TCP) -----")
-    print(f"Requisições enviadas: {args.num_requests}")
-    print(f"Requisições respondidas: {len(rtts)}")
-    print(f"Tempo total da sequência: {total_time:.1f} ms")
-    if rtts:
-        print(f"RTT médio: {sum(rtts) / len(rtts):.1f} ms")
-        print(f"RTT máximo: {max(rtts):.1f} ms")
+    print("\n" + "=" * 75)
+    print("                         ESTATÍSTICAS TCP")
+    print("=" * 75)
 
+    print(f"{'Requisições enviadas:':<40}{args.num_requests}")
+    print(f"{'Requisições respondidas:':<40}{len(rtts)}")
+    print(f"{'Tempo total da sequência:':<40}{total_time:.1f} ms")
+
+    if rtts:
+        print(f"{'RTT médio:':<40}{sum(rtts) / len(rtts):.1f} ms")
+        print(f"{'RTT máximo:':<40}{max(rtts):.1f} ms")
+
+        avg_size = sum(sent_bytes + recv_bytes) / len(sent_bytes + recv_bytes)
+
+        print(
+            f"{'Tamanho médio das mensagens:':<40}"
+            f"{avg_size:.1f} bytes"
+        )
+
+    print("=" * 75)
 
 if __name__ == '__main__':
     main()
