@@ -1,0 +1,19 @@
+syntax = "proto3";
+
+package calc;
+
+// Requisição de cálculo
+message CalcRequest {
+  int32 n = 1;
+  double operand1 = 2;
+  string op = 3;
+  double operand2 = 4;
+}
+
+// Resposta do servidor
+message CalcResponse {
+  int32 n = 1;
+  bool success = 2;
+  double result = 3;
+  string error = 4;
+}

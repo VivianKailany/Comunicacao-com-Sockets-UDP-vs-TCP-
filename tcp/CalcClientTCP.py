@@ -17,7 +17,7 @@ def main():
     parser.add_argument('--host', default='127.0.0.1')
     parser.add_argument('--port', type=int, default=9001)
     parser.add_argument('-n', '--num-requests', type=int, default=20)
-    parser.add_argument('--seed', type=int, default=None)
+    parser.add_argument('--seed', type=int, default=42)
     args = parser.parse_args()
 
     if args.seed is not None:
